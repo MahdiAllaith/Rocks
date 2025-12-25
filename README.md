@@ -69,23 +69,54 @@ Key services include:
 
 ---
 
-⚠️ Important Notice
-Why This Repository Won't Run the Game
-This repository contains only the Luau scripts and service framework—not a playable game. Due to Rojo's technical limitations, the following critical assets are NOT included:
--❌ UI Elements - Interface components, HUD, menus, and feedback popups
--❌ 3D Assets - Dungeon models, environmental objects, and character models
--❌ Animations - Character and object animations
--❌ Audio & Effects - Sound effects, music, and particle systems
--❌ Configurations - Tool grips, player settings, and game data
-Why? Rojo syncs scripts only. UI elements and 3D models are Roblox instances tied to specific asset IDs under the developer's account and cannot be exported to file systems or shared via GitHub.
-Even if a .rbxlx save file were provided, loading it on another account would result in missing or broken assets due to asset ownership restrictions.
-What You CAN Do
--✅ Explore the code architecture - Review the service-based design and scripting patterns
--✅ Study the client-server model - Understand multiplayer synchronization implementation
--✅ Examine the framework - Learn from the modular service loader and class structure
--✅ Play the live game - Experience the full game at: https://www.roblox.com/games/75178964377277/Rock-Systems
+## ⚠️ Important Notice  
+### Why This Repository Will Not Run the Game
+
+This repository contains **only Luau scripts and the service framework**, not a fully playable game.
+
+Due to **Rojo’s technical limitations**, the following critical assets are **not included**:
+
+- ❌ **UI Elements**  
+  Interface components, HUDs, menus, and feedback popups
+
+- ❌ **3D Assets**  
+  Dungeon models, environmental objects, and character models
+
+- ❌ **Animations**  
+  Character and object animations
+
+- ❌ **Audio & Effects**  
+  Sound effects, music, and particle systems
+
+- ❌ **Configurations**  
+  Tool grips, player settings, and runtime game data
+
+### Why?
+
+Rojo synchronizes **scripts only**.  
+UI elements and 3D assets are Roblox instances tied to specific **asset IDs and creator ownership**, which cannot be exported to the filesystem or reliably shared through GitHub.
+
+Even if a `.rbxlx` place file were provided, opening it on another account would result in **missing or broken assets** due to Roblox asset ownership restrictions.
 
 ---
+
+## What You *Can* Do
+
+- ✅ **Explore the code architecture**  
+  Review the service-based design and scripting patterns
+
+- ✅ **Study the client–server model**  
+  Understand how multiplayer synchronization and validation are handled
+
+- ✅ **Examine the framework**  
+  Learn from the modular service loader and class structure
+
+- ✅ **Play the live game**  
+  Experience the full game here:  
+  https://www.roblox.com/games/75178964377277/Rock-Systems
+
+---
+
 
 ## 🎓 Academic Context
 
