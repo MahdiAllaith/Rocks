@@ -38,16 +38,16 @@ Want to experience the game firsthand? Join now on Roblox:
 rocks/
 ├── src/
 │   ├── ReplicatedStorage/
-│   │   ├── Services/          # Shared client-server services
-│   │   ├── Modules/           # Reusable module scripts
-│   │   └── GameEvents/        # RemoteEvents & RemoteFunctions
+│   │   ├── Services/             # Shared client-server services
+│   │   ├── Utilities/            # Utils module scripts
+│   │   └── Events/               # Rojo limitations, cant copy events instances 
 │   ├── ServerStorage/
-│   │   ├── Services/          # Server-side services
-│   │   └── PlayerService/     # Core player management
-│   ├── ServerScriptService/   # Server initialization scripts
+│   │   └── Services/             # Server-side services
+│   │      └── PlayerService/     # Core player class management
+│   ├── ServerScriptService/      # Server initialization scripts
 │   └── StarterPlayer/
-│       └── StarterPlayerScripts/  # Client initialization
-├── default.project.json       # Rojo project configuration
+│       └── StarterPlayerScripts/ # Client initialization
+├── default.project.json          # Rojo project configuration
 └── README.md
 ```
 
