@@ -80,141 +80,31 @@ Key services include:
 
 ---
 
-## 🛠️ Getting Started
-
-This repository contains the **source code framework** of the Rocks game, managed through Rojo for external development workflow.
-
-### Prerequisites
-
-- [Roblox Studio](https://www.roblox.com/create) installed
-- [Rojo 7.6.1+](https://github.com/rojo-rbx/rojo/releases) installed
-- Git for cloning the repository
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/rocks.git
-   cd rocks
-   ```
-
-2. **Build the Roblox place file**:
-   ```bash
-   rojo build -o "Rocks.rbxlx"
-   ```
-
-3. **Open in Roblox Studio**:
-   - Open the generated `Rocks.rbxlx` file in Roblox Studio
-
-4. **Start the Rojo sync server**:
-   ```bash
-   rojo serve
-   ```
-
-5. **Connect Roblox Studio to Rojo**:
-   - In Roblox Studio, go to Plugins → Rojo → Connect
-   - The server should be running at `localhost:34872`
-
-For more detailed instructions, refer to the [Rojo Documentation](https://rojo.space/docs).
-
----
-
-## ⚠️ Important Limitations
-
-### Why the Game Won't Run from This Repository
-
-Due to **Rojo's technical limitations**, this repository contains **only the Luau scripts and service framework**. The following critical assets are **NOT included**:
-
-❌ **UI Elements** - All interface components, HUD, menus, and feedback popups  
-❌ **3D Assets** - Dungeon models, environmental objects, character models, and props  
-❌ **Animations** - Character and object animations  
-❌ **Audio Files** - Sound effects and background music  
-❌ **Particle Effects** - Visual effects and lighting configurations  
-❌ **Configuration Objects** - Tool grips, player settings, and game configurations  
-
-**Why this happens:**
-- Rojo is designed to sync **scripts only**, not physical assets or UI instances
-- UI elements and 3D models are stored as Roblox instances with unique properties that cannot be represented in file systems
-- The `.rbxlx` file format includes these assets, but they are tied to specific asset IDs under the developer's account
-
-### Alternative: Use the Provided `.rbxlx` File
-
-Even if a complete `.rbxlx` save file were provided, **the same limitation applies**:
-- UI elements reference asset IDs under the original developer's account
-- 3D models and textures are tied to the Roblox asset system
-- Loading the file on another account will result in missing or broken assets
-
-### What You CAN Do
-
-✅ **Explore the code architecture** - Review the service-based design and scripting patterns  
-✅ **Study the client-server model** - Understand how multiplayer synchronization is implemented  
-✅ **Examine the framework** - Learn from the modular service loader and class structure  
-✅ **Play the live game** - Experience the full game at: [https://www.roblox.com/games/75178964377277/Rock-Systems](https://www.roblox.com/games/75178964377277/Rock-Systems)
-
+⚠️ Important Notice
+Why This Repository Won't Run the Game
+This repository contains only the Luau scripts and service framework—not a playable game. Due to Rojo's technical limitations, the following critical assets are NOT included:
+❌ UI Elements - Interface components, HUD, menus, and feedback popups
+❌ 3D Assets - Dungeon models, environmental objects, and character models
+❌ Animations - Character and object animations
+❌ Audio & Effects - Sound effects, music, and particle systems
+❌ Configurations - Tool grips, player settings, and game data
+Why? Rojo syncs scripts only. UI elements and 3D models are Roblox instances tied to specific asset IDs under the developer's account and cannot be exported to file systems or shared via GitHub.
+Even if a .rbxlx save file were provided, loading it on another account would result in missing or broken assets due to asset ownership restrictions.
+What You CAN Do
+✅ Explore the code architecture - Review the service-based design and scripting patterns
+✅ Study the client-server model - Understand multiplayer synchronization implementation
+✅ Examine the framework - Learn from the modular service loader and class structure
+✅ Play the live game - Experience the full game at: https://www.roblox.com/games/75178964377277/Rock-Systems
 ---
 
 ## 🎓 Academic Context
 
-This project was developed as part of a **Bachelor of Information & Communication Technology (Programming)** thesis at **Bahrain Polytechnic** in 2025.
+This project was developed as part of a **Bachelor of Information & Communication Technology (Programming)** final project at **Bahrain Polytechnic** in 2025.
 
 **Developer**: Mahdi Safa Allaith  
 **Studio**: TeamIron Studio  
 **Supervisor**: Mr. Hasan AlAradi  
 **Project Code**: IT7099
-
-The thesis explores structured game development methodologies, client-server architecture design, and multiplayer game optimization within the Roblox ecosystem.
-
----
-
-## 🏗️ System Architecture
-
-### Client-Server Model
-
-The game implements a strict separation between client and server responsibilities:
-
-**Client Responsibilities:**
-- Input capture and processing
-- Local animations and effects
-- UI updates and feedback
-- Camera control
-- Prediction for responsive gameplay
-
-**Server Responsibilities:**
-- Authoritative game state
-- Data validation and security
-- Player data persistence
-- Multiplayer synchronization
-- Combat calculations and hit detection
-
-### Communication Protocol
-
-- **RemoteEvents**: One-way communication for actions that don't require responses (e.g., triggering abilities)
-- **RemoteFunctions**: Two-way communication for validated requests (e.g., stamina checks, data updates)
-- **Debouncing**: Prevents spam and exploits through server-side cooldown enforcement
-
----
-
-## 🧪 Testing & Validation
-
-The game underwent comprehensive testing phases:
-
-- **Functional Testing**: Verified core mechanics, abilities, and UI interactions
-- **Multiplayer Testing**: Validated synchronization across multiple clients
-- **Performance Testing**: Optimized for smooth gameplay across PC and mobile devices
-- **Acceptance Testing**: Conducted with development team, project manager, and external testers
-- **Stress Testing**: Evaluated server stability under high player load
-
-**Test Results**: All core objectives achieved with stable performance across platforms.
-
----
-
-## 📊 Project Statistics
-
-- **Development Time**: Academic semester (2024-2025)
-- **Lines of Code**: 5,000+ lines of Luau
-- **Services Implemented**: 15+ modular services
-- **Supported Platforms**: PC, Mobile, Console
-- **Multiplayer Capacity**: Optimized for 10+ concurrent players
 
 ---
 
@@ -222,7 +112,7 @@ The game underwent comprehensive testing phases:
 
 This repository is maintained as an **academic portfolio project**. While contributions are not actively sought, feedback and suggestions are welcome.
 
-If you're interested in collaborating or have questions about the implementation, feel free to open an issue.
+If you have questions about the implementation, feel free to open an issue.
 
 ---
 
@@ -249,7 +139,6 @@ Special thanks to:
 - **Mr. Hasan AlAradi** - Project Supervisor
 - **TeamIron Studio** - Collaboration and creative input
 - **Bahrain Polytechnic** - Academic support and resources
-- **Roblox Developer Community** - Technical guidance and shared knowledge
 
 ---
 
@@ -257,9 +146,7 @@ Special thanks to:
 
 **Developer**: Mahdi Safa Allaith  
 **Institution**: Bahrain Polytechnic  
-**Year**: 2025
-
-For inquiries related to this project, please open an issue in this repository.
+**Emil**: Mahdi-Safa@hotmail.com
 
 ---
 
