@@ -69,7 +69,6 @@ Key services include:
 
 ---
 
-
 ⚠️ Important Notice
 Why This Repository Won't Run the Game
 This repository contains only the Luau scripts and service framework—not a playable game. Due to Rojo's technical limitations, the following critical assets are NOT included:
@@ -85,6 +84,7 @@ What You CAN Do
 ✅ Study the client-server model - Understand multiplayer synchronization implementation
 ✅ Examine the framework - Learn from the modular service loader and class structure
 ✅ Play the live game - Experience the full game at: https://www.roblox.com/games/75178964377277/Rock-Systems
+
 ---
 
 ## 🎓 Academic Context
