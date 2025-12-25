@@ -69,51 +69,25 @@ Key services include:
 
 ---
 
-## ⚠️ Important Notice  
-### Why This Repository Will Not Run the Game
+⚠️ **Important Notice**  
+### Why This Repository Won’t Run the Game
 
-This repository contains **only Luau scripts and the service framework**, not a fully playable game.
+This repository contains **only Luau scripts and the service framework**. It is **not a playable game**.  
 
-Due to **Rojo’s technical limitations**, the following critical assets are **not included**:
+Due to **Rojo limitations**, the following are **not included**:  
+- ❌ UI elements (menus, HUD, popups)  
+- ❌ 3D assets (models, environments, characters)  
+- ❌ Animations  
+- ❌ Audio & effects (music, SFX, particles)  
+- ❌ Configurations (tool settings, player data)
 
-- ❌ **UI Elements**  
-  Interface components, HUDs, menus, and feedback popups
+Even providing a `.rbxlx` file would **not work properly** because UI elements and 3D assets are tied to my Roblox account and cannot be copied to another account.  
 
-- ❌ **3D Assets**  
-  Dungeon models, environmental objects, and character models
-
-- ❌ **Animations**  
-  Character and object animations
-
-- ❌ **Audio & Effects**  
-  Sound effects, music, and particle systems
-
-- ❌ **Configurations**  
-  Tool grips, player settings, and runtime game data
-
-### Why?
-
-Rojo synchronizes **scripts only**.  
-UI elements and 3D assets are Roblox instances tied to specific **asset IDs and creator ownership**, which cannot be exported to the filesystem or reliably shared through GitHub.
-
-Even if a `.rbxlx` place file were provided, opening it on another account would result in **missing or broken assets** due to Roblox asset ownership restrictions.
-
----
-
-## What You *Can* Do
-
-- ✅ **Explore the code architecture**  
-  Review the service-based design and scripting patterns
-
-- ✅ **Study the client–server model**  
-  Understand how multiplayer synchronization and validation are handled
-
-- ✅ **Examine the framework**  
-  Learn from the modular service loader and class structure
-
-- ✅ **Play the live game**  
-  Experience the full game here:  
-  https://www.roblox.com/games/75178964377277/Rock-Systems
+### What You Can Do
+- ✅ Explore the **code structure and framework**  
+- ✅ Study the **client-server setup**  
+- ✅ Check the **service scripts**  
+- ✅ Play the live game here: [Rock Systems](https://www.roblox.com/games/75178964377277/Rock-Systems)
 
 ---
 
