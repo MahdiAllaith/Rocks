@@ -1,6 +1,6 @@
 # 🎮 Rocks - 3D Dungeon Platformer
 
-A multiplayer 3D dungeon platformer game built on Roblox, featuring physics-based rock-throwing mechanics, challenging obstacle courses (obby), and an engaging combat system. Developed by TeamIron Studio as part of a Bachelor's thesis project at Bahrain Polytechnic.
+A multiplayer 3D dungeon platformer game built on Roblox, featuring physics-based rock-throwing mechanics, challenging obstacle courses (obby), and an engaging combat system. Developed by TeamIron Studio as part of a final project at Bahrain Polytechnic.
 
 [![Roblox Game](https://img.shields.io/badge/Play%20on-Roblox-00A2FF?style=for-the-badge&logo=roblox)](https://www.roblox.com/games/75178964377277/Rock-Systems)
 [![Language](https://img.shields.io/badge/Language-Luau-00A2FF?style=for-the-badge)](https://luau-lang.org/)
