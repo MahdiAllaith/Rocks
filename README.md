@@ -69,17 +69,6 @@ Key services include:
 
 ---
 
-## ⚙️ Technology Stack
-
-- **Language**: [Luau](https://luau-lang.org/) (Roblox's typed Lua variant)
-- **Development Environment**: Roblox Studio
-- **Sync Tool**: [Rojo](https://rojo.space/) - Enables external code editing and version control
-- **External Editor**: Visual Studio Code with Rojo extension
-- **Version Control**: Git & GitHub
-- **Additional Tools**: TypeScript (transpiled to Luau), Blender (3D assets), Photoshop & Clip Studio Paint (UI design)
-
----
-
 ⚠️ Important Notice
 Why This Repository Won't Run the Game
 This repository contains only the Luau scripts and service framework—not a playable game. Due to Rojo's technical limitations, the following critical assets are NOT included:
