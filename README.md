@@ -72,18 +72,18 @@ Key services include:
 ⚠️ Important Notice
 Why This Repository Won't Run the Game
 This repository contains only the Luau scripts and service framework—not a playable game. Due to Rojo's technical limitations, the following critical assets are NOT included:
-❌ UI Elements - Interface components, HUD, menus, and feedback popups
-❌ 3D Assets - Dungeon models, environmental objects, and character models
-❌ Animations - Character and object animations
-❌ Audio & Effects - Sound effects, music, and particle systems
-❌ Configurations - Tool grips, player settings, and game data
+-❌ UI Elements - Interface components, HUD, menus, and feedback popups
+-❌ 3D Assets - Dungeon models, environmental objects, and character models
+-❌ Animations - Character and object animations
+-❌ Audio & Effects - Sound effects, music, and particle systems
+-❌ Configurations - Tool grips, player settings, and game data
 Why? Rojo syncs scripts only. UI elements and 3D models are Roblox instances tied to specific asset IDs under the developer's account and cannot be exported to file systems or shared via GitHub.
 Even if a .rbxlx save file were provided, loading it on another account would result in missing or broken assets due to asset ownership restrictions.
 What You CAN Do
-✅ Explore the code architecture - Review the service-based design and scripting patterns
-✅ Study the client-server model - Understand multiplayer synchronization implementation
-✅ Examine the framework - Learn from the modular service loader and class structure
-✅ Play the live game - Experience the full game at: https://www.roblox.com/games/75178964377277/Rock-Systems
+-✅ Explore the code architecture - Review the service-based design and scripting patterns
+-✅ Study the client-server model - Understand multiplayer synchronization implementation
+-✅ Examine the framework - Learn from the modular service loader and class structure
+-✅ Play the live game - Experience the full game at: https://www.roblox.com/games/75178964377277/Rock-Systems
 
 ---
 
