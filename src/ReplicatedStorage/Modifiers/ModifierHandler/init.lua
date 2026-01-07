@@ -47,7 +47,7 @@ function ModifierHandler.GetRock(mods:{Name:String, Type:String}?, Tool: Tool?, 
 		end
 	elseif Type == "Player" then
 		-- Only runs for "Player" Type
-		if mods == nil or mods.Name == nil or mods.Type == nil then
+		if mods == nil or mods.Name == nil or mods.Name == "" then
 			require(script.DefaultRock)(Tool, RockModel, Type)
 		else
 			findRockHandler(mods.Name, mods.Type)(Tool, RockModel, Type)

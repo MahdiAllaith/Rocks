@@ -22,7 +22,7 @@ function A_WeakEnergyStoneClass.Init()
 	self.ItemType = "Kit"
 	
 	self.Rarity = "Uncommon"
-	self.Description = ""
+	self.Description = "Increases stamina by 50 points"
 
 	return self
 end

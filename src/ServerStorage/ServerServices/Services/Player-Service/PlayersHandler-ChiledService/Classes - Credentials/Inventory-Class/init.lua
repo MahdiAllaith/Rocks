@@ -46,24 +46,26 @@ function InventoryClass.Init(player: Player, DATA)
 	local self = setmetatable({}, InventoryClass)
 	self.Player = player
 	-- must be set to database inventory table
-	self.InventoryDataBaseTable  = {
-		{Name = "LargeRegenStaminaPotion", Amount = 100,ItemType= "UseItem"},
-		{Name="FireRune", Amount = 2,ItemType= "RockModifire"},
-		{Name="FireRock", Amount = 1, ItemType="RockModifire"},
-		{Name="WeakLifeStone", Amount = 1, ItemType="Kit"},
-		{Name="NormalAgilityStone", Amount = 1, ItemType="Kit"},
-	}
+	--self.InventoryDataBaseTable  = {
+	--	{Name = "LargeRegenStaminaPotion", Amount = 100,ItemType= "UseItem"},
+	--	{Name="FireRune", Amount = 2,ItemType= "RockModifire"},
+	--	{Name="FireRock", Amount = 1, ItemType="RockModifire"},
+	--	{Name="WeakLifeStone", Amount = 1, ItemType="Kit"},
+	--	{Name="NormalAgilityStone", Amount = 1, ItemType="Kit"},
+	--}
+
+	self.InventoryDataBaseTable = DATA.Inventory.Items
 
 	self.Inventory = {} :: {ItemData}
 	self.InventoryLimit = 1000000 -- slots based, and can stack
-	
+
 	local SafeAddEvent = script.Parent.Parent.Safe_ReAdd_Item_To_Invetory
 	SafeAddEvent.Event:Connect(function(Player: Player,ItemClass: Registry.SingleAllClasses, Amount: number)
 		if Player == self.Player then
 			self:AddItem(ItemClass, Amount)
 		end
 	end)
-	
+
 	local class
 
 	for _, item in ipairs(self.InventoryDataBaseTable) do
@@ -83,7 +85,7 @@ function InventoryClass.Init(player: Player, DATA)
 			warn("Item class not found for: " .. item.Name)
 		end
 	end
-	
+
 	return self
 end
 
@@ -443,7 +445,7 @@ function InventoryClass:AddItem(item: Registry.SingleAllClasses, amount: number)
 			} :: ItemData
 		}
 	end
-	
+
 	self:UpdateInventoryVisual()
 
 	return { success = true, leftover = nil }
@@ -471,7 +473,7 @@ function InventoryClass:UseItem(item: Registry.SingleAllUseItemClasses)
 				table.remove(self.Inventory, i)
 			end
 			print(self.Inventory)
-			
+
 			self:UpdateInventoryVisual()
 			return item.Use
 		end
@@ -528,9 +530,9 @@ function InventoryClass:RemoveItem(item: Registry.SingleAllClasses, amount: numb
 			end
 		end
 	end
-	
+
 	self:UpdateInventoryVisual()
-	
+
 	-- Couldn’t remove full amount
 	return { success = false, removed = 0 }
 end

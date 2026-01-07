@@ -28,7 +28,7 @@ function AbilitiesClass.Init(player: Player, DATA)
 	self.DefaultRunSpeed = 21
 	self.DefaultJumpPower = 20.001
 	self.DefaultHipHeight = 1.998
-	
+		
 	player:SetAttribute("CurrentWalkSpeed", self.WalkSpeed)
 	player:SetAttribute("CurrentRunSpeed", self.RunSpeed)
 	player:SetAttribute("CurrentJumpPower", self.RunSpeed)
@@ -87,11 +87,17 @@ end
 
 -- Disable all player movement (walk, run, jump)
 function AbilitiesClass:DisableMovement()
+	-- If movement is already disabled, do nothing
+	if self._SavedMovementState then
+		return
+	end
+	
 	self._SavedMovementState = {
 		WalkSpeed = self.WalkSpeed,
 		RunSpeed = self.RunSpeed,
 		JumpPower = self.JumpPower
 	}
+	
 
 	self.WalkSpeed = 0
 	self.RunSpeed = 0
@@ -111,6 +117,8 @@ function AbilitiesClass:EnableMovement()
 		self.WalkSpeed = self._SavedMovementState.WalkSpeed
 		self.RunSpeed = self._SavedMovementState.RunSpeed
 		self.JumpPower = self._SavedMovementState.JumpPower
+		
+		self._SavedMovementState = nil
 	else
 		-- Fall back to defaults if nothing was saved
 		self.WalkSpeed = self.DefaultWalkSpeed

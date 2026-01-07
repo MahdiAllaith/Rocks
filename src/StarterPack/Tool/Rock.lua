@@ -8,11 +8,14 @@ local Rock = {}
 local currentHandler
 
 function Rock.Init()
+	wait(1)
 	local PlayerModifiers = RockModifiers:InvokeServer()
+	warn(PlayerModifiers)
 	currentHandler = ModifierHandler.GetRock(PlayerModifiers, tool, tool:WaitForChild("Handle"), "Player")
 end
 
 ResetRockEvent.OnClientEvent:Connect(function(newMods)
+	warn(newMods)
 	currentHandler = ModifierHandler.GetRock(newMods, tool, tool:WaitForChild("Handle", 5), "Player")
 end)
 

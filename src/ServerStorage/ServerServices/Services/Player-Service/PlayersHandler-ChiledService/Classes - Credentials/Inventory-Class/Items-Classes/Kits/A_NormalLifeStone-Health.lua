@@ -27,7 +27,7 @@ function A_NormalLifeStoneClass.Init()
 	self.ItemType = "Kit"
 	
 	self.Rarity = "Common"
-	self.Description = ""
+	self.Description = "Increases health by 150 points"
 
 	return self
 end

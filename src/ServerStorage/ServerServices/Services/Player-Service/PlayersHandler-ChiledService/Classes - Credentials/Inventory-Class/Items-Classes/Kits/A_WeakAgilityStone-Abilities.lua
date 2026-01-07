@@ -18,14 +18,14 @@ function A_WeakAgilityStoneClass.Init()
 
 	self.TypeKit = "Abilities"
 	self.WalkIncrease = 5 -- % increase
-	self.RunIncrease = 10 -- % increase
+	self.RunIncrease = 5 -- % increase
 	self.JumpIncrease = 5 -- % increase
 	
 	self.ItemType = "Kit"
 	
 	
 	self.Rarity = "Uncommon"
-	self.Description = ""
+	self.Description = "Increases walk speed by 5% and jump power by 5%"
 
 	return self
 end

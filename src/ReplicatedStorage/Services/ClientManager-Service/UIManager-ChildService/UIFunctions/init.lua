@@ -710,7 +710,7 @@ function GuiInitializer.InitializeUnifiedInventorySystem(GUI: ScreenGui) : Unifi
 	local function createDynamicInventoryButton(inventoryItemFolder, itemFolderName)
 		local itemAttributes = inventoryItemFolder:GetAttributes()
 		local categoryContainer = getInventoryItemParentContainer(itemAttributes)
-
+		
 		-- Create main inventory item button
 		local primaryInventoryButton = Instance.new("ImageButton")
 		primaryInventoryButton.BackgroundTransparency = 1
@@ -1199,7 +1199,6 @@ end
 
 function GuiInitializer.Hide3D_UI_Transparency(GUI: ScreenGui, fadeOut: boolean, duration: number?)
 	duration = duration or 0.2
-
 	local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
 	local targetTransparency = fadeOut and 1 or 0
 
@@ -1214,10 +1213,11 @@ function GuiInitializer.Hide3D_UI_Transparency(GUI: ScreenGui, fadeOut: boolean,
 
 	-- Iterate through the two SurfaceGuis
 	for _, surfaceGui in ipairs(surfaceGuis) do
-		-- Find all Frames, ImageLabels, and ImageButtons under this SurfaceGui
+		-- Find all Frames, ImageLabels, ImageButtons, and TextLabels under this SurfaceGui
 		local frames = FunctionUtils.Object.findAll("Black", surfaceGui)
 		local imageLabels = FunctionUtils.Object.findAllWhichAreA("ImageLabel", surfaceGui)
 		local imageButtons = FunctionUtils.Object.findAllWhichAreA("ImageButton", surfaceGui)
+		local textLabels = FunctionUtils.Object.findAllWhichAreA("TextLabel", surfaceGui)
 
 		-- Tween all ImageLabels
 		for _, img in ipairs(imageLabels) do
@@ -1236,6 +1236,13 @@ function GuiInitializer.Hide3D_UI_Transparency(GUI: ScreenGui, fadeOut: boolean,
 				btn.Visible = not fadeOut -- hide if faded out, show if faded back in
 				signal:Disconnect()
 			end)
+			tween:Play()
+		end
+
+		-- Tween all TextLabels
+		for _, txt in ipairs(textLabels) do
+			txt.TextTransparency = fadeOut and 0 or 1 -- start transparency
+			local tween = TweenService:Create(txt, tweenInfo, {TextTransparency = targetTransparency})
 			tween:Play()
 		end
 

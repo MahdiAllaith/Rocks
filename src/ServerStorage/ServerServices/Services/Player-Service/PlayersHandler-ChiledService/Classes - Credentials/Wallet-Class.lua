@@ -15,8 +15,8 @@ function WalletClass.Init(player: Player, DATA)
 
 	self.Player = player
 
-	self.RocksAmount = 0 -- default game currency
-	self.LuminiteAmount = 0 -- rare currency
+	self.RocksAmount = DATA.Wallet.RocksAmount or 0 -- default game currency
+	self.LuminiteAmount = DATA.Wallet.LuminiteAmount or 0 -- rare currency
 
 	player:SetAttribute("RocksAmount", self.RocksAmount)
 	player:SetAttribute("LuminiteAmount", self.LuminiteAmount)

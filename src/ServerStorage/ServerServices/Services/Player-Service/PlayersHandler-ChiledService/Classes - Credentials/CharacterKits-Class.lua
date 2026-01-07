@@ -21,9 +21,9 @@ function CharacterKitsClass.Init(player: Player, DATA)
 	local self = setmetatable({}, CharacterKitsClass)
 
 	self.Player = player
-	
-	self.PlayerData = {"","",""}
-	
+
+	self.PlayerData = {DATA.CharacterKits.Health, DATA.CharacterKits.Stamina, DATA.CharacterKits.Abilities }
+
 	self.HealthKit1 = nil -- Take only health kit
 	self.StaminaKit2 = nil -- Take only stamina kit
 	self.AgilityKit3 = nil -- Take only agitity kit
@@ -36,10 +36,10 @@ function CharacterKitsClass:SetKits(HealthClass: HealthClassType, StaminaClass: 
 	if self.PlayerData then
 		for _, kit in ipairs(self.PlayerData) do
 			local AllKitsRegistry = Registry.ItemClassRegistry.Kits.All
-			
+
 			if AllKitsRegistry[kit] then
 				local KitClass = AllKitsRegistry[kit].Init()
-				
+
 				if KitClass.TypeKit == "Health" then
 					if KitClass.TypeHandle == "Increase" then
 						HealthClass:IncreaseHealth(KitClass.HealthIncrease)
@@ -58,7 +58,7 @@ function CharacterKitsClass:SetKits(HealthClass: HealthClassType, StaminaClass: 
 					AbilitiesClass:SetKitByPercentage(KitClass.WalkIncrease, KitClass.RunIncrease, KitClass.JumpIncrease)
 					self.AgilityKit3 = KitClass
 				end
-				
+
 				self:SetKitAttributes()
 			else
 				warn("Kit was not found")
@@ -183,7 +183,7 @@ function CharacterKitsClass:SetKitAttributes()
 	local kitSlots = {
 		{kit = self.HealthKit1, folderName = "Health"},
 		{kit = self.StaminaKit2, folderName = "Stamina"},
-		{kit = self.AgilityKit3, folderName = "Abilitie"} -- fixed typo Abilitie → Abilities
+		{kit = self.AgilityKit3, folderName = "Abilities"} -- fixed typo Abilitie → Abilities
 	}
 
 	for _, slot in ipairs(kitSlots) do
@@ -229,9 +229,9 @@ function CharacterKitsClass:UpdateSingleKitAttributes(kitType: string)
 		warn("Invalid kit type: " .. tostring(kitType))
 		return
 	end
-	
+
 	warn(targetKit)
-	
+
 	local destination = ActiveCharacterKits:WaitForChild(targetKit.folderName)
 
 	if targetKit.kit then

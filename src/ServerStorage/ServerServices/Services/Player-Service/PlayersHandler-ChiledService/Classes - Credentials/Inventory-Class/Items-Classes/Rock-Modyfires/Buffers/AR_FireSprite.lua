@@ -27,7 +27,7 @@ function FireSpriteClass.Init()
 	self.ItemType = "RockModifire"
 	
 	self.Rarity = "Uncommon"
-	self.Description = ""
+	self.Description = "Increases fire damage by 10% and throw distance by 5%"
 
 	return self
 end

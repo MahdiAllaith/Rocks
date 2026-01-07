@@ -22,7 +22,7 @@ function A_NormalEnergyStoneClass.Init()
 	self.ItemType = "Kit"
 	
 	self.Rarity = "Common"
-	self.Description = ""
+	self.Description = "Increases stamina by 100 points"
 
 	return self
 end

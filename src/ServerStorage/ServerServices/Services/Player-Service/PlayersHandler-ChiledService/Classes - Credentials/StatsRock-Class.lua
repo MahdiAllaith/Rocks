@@ -33,7 +33,7 @@ function StatsRockClass.Init(player: Player, DATA)
 
 	self.Player = player
 
-	local playerDummyData = {Model = "", Handler = "", Buffer = ""}
+	--local playerDummyData = {Model = "FireRock", Handler = "", Buffer = ""}
 
 	self.Mod1_Shape_and_Damage = nil
 	self.Mod2_Handler = nil
@@ -54,7 +54,7 @@ function StatsRockClass.Init(player: Player, DATA)
 
 	self.DamageFunction = nil
 
-	self:SetRockClasses(playerDummyData)
+	self:SetRockClasses(DATA.RockStats)
 
 	warn(self.DamageFunction)
 
@@ -83,6 +83,9 @@ function StatsRockClass:EquipeModifier(newModifierObject: Registry.SingleAllRock
 	if category == "Model" then
 		if self.Mod2_Handler == nil then
 			self.Mod1_Shape_and_Damage = newModifierObject
+			if self.Mod1_Shape_and_Damage ~= nil then
+				oldClass = self.Mod1_Shape_and_Damage
+			end
 		elseif self.Mod2_Handler ~= nil and self.RockType == newModifierObject.Type then
 			oldClass = self.Mod1_Shape_and_Damage
 			self.Mod1_Shape_and_Damage = newModifierObject
@@ -98,12 +101,12 @@ function StatsRockClass:EquipeModifier(newModifierObject: Registry.SingleAllRock
 				oldClass = self.Mod2_Handler
 				self.Mod2_Handler = newModifierObject
 			end
-			
+
 		elseif self.Mod1_Shape_and_Damage ~= nil and self.RockType == newModifierObject.Type then
 			if self.Mod2_Handler then
 				oldClass = self.Mod2_Handler
 			end
-			
+
 			self.Mod2_Handler = newModifierObject
 		else
 			return false
@@ -163,7 +166,7 @@ function StatsRockClass:UnequipeModifierByType(modifierType: string): Registry.S
 		collectionService:RemoveTag(self.Player, "RestingTool")
 
 		RestRockEvent:FireClient(self.Player, {
-			Name = oldClass.Name,
+			Name = "",
 			Type = self.RockType,
 			Rock = self.Mod1_Shape_and_Damage and self.Mod1_Shape_and_Damage.Name
 		})
@@ -188,11 +191,19 @@ function StatsRockClass:SetRockClasses(Data: {Model: string?, Handler: string?, 
 	local Clone
 
 	if Data.Model == nil or Data.Model == "" then -- Sets default rock
-		self.Player.CharacterAdded:Connect(function()
+		local function GiveTool()
 			local backpack = self.Player:WaitForChild("Backpack").Tool
 			Clone = DefaultRockHandle:Clone()
 			Clone.Name = "Handle"
 			Clone.Parent = backpack
+		end
+
+		if self.Player.Character then
+			GiveTool()
+		end
+
+		self.Player.CharacterAdded:Connect(function()
+			GiveTool()
 		end)
 
 		self.Mod1_Shape_and_Damage = nil
@@ -204,12 +215,38 @@ function StatsRockClass:SetRockClasses(Data: {Model: string?, Handler: string?, 
 				self.RockType = self.Mod1_Shape_and_Damage.Type
 				self.Damage = self.Mod1_Shape_and_Damage.RockDamage
 
-				Clone = self.Mod1_Shape_and_Damage.Model
+				local OriginalModel = self.Mod1_Shape_and_Damage.Model
+
+				local function GiveTool()
+					if not OriginalModel then
+						warn("Original model not found")
+						return
+					end
+
+					local Backpack = self.Player:WaitForChild("Backpack", 5)
+					if not Backpack then
+						warn("Backpack not found for player")
+						return
+					end
+
+					local Tool = Backpack:FindFirstChild("Tool")
+					if not Tool then
+						warn("Tool not found in Backpack")
+						return
+					end
+
+					-- Clone fresh each time
+					local Clone = OriginalModel:Clone()
+					Clone.Name = "Handle"
+					Clone.Parent = Tool
+				end
+
+				if self.Player.Character then
+					GiveTool()
+				end
 
 				self.Player.CharacterAdded:Connect(function()
-					local ToolHandlePart = self.Player:WaitForChild("Backpack").Tool
-					Clone.Name = "Handle"
-					Clone.Parent = ToolHandlePart
+					GiveTool()
 				end)
 			end
 		end
@@ -243,6 +280,9 @@ function StatsRockClass:SetRockClasses(Data: {Model: string?, Handler: string?, 
 						end
 					end
 
+					warn(self.Mod2_Handler)
+					warn("asdasdasdasd")
+
 				else -- this if type does not match
 					SafeAddEvent.Event:Fire(self.Player, self.Mod2_Handler, 1) -- Saves the modifier in the player inventory
 					-- Should have event for notification to client must add later
@@ -262,11 +302,11 @@ function StatsRockClass:SetRockClasses(Data: {Model: string?, Handler: string?, 
 			if Data.Buffer == Class.Name then
 
 				self.Mod3_Buffers = Class.Init()
-				
+
 				local SetOtherModifiers = function()
 					local ThrowDistanceModifier = self.Mod3_Buffers.ThrowDistanceModifier
 					local DamageMultiplier = self.Mod3_Buffers.DamageMultiplier
-					
+
 					if ThrowDistanceModifier ~= 0 then
 						self.ThrowDistance *= (1 + ThrowDistanceModifier)
 					end
@@ -295,10 +335,10 @@ function StatsRockClass:SetRockClasses(Data: {Model: string?, Handler: string?, 
 			end
 		end
 	end
-	
+
 	self:SetRockStats() -- sets the new rock stats attributes
 	self:SetModifierData() -- sets the new rock modifiers stats attributes
-	
+
 end
 
 function StatsRockClass:RefreshModifiers()
@@ -366,7 +406,7 @@ function StatsRockClass:RefreshModifiers()
 			end
 		end)
 	end
-	
+
 	--warn(self.Mod1_Shape_and_Damage)
 
 	-- Handle the tool's Handle (with pcall protection)
@@ -380,7 +420,7 @@ function StatsRockClass:RefreshModifiers()
 				Clone.Name = "Handle"
 				Clone.Parent = backpackTool
 			end
-			
+
 		end)
 	end
 
@@ -406,7 +446,7 @@ function StatsRockClass:RefreshModifiers()
 				end
 			end
 		end
-		
+
 	else
 		-- incompatible handler: clear it if mismatched
 		if self.Mod2_Handler and self.RockType and self.Mod2_Handler.Type ~= self.RockType then
@@ -415,23 +455,24 @@ function StatsRockClass:RefreshModifiers()
 			self.Mod2_Handler = nil
 			warn("Rock model type must equal the handler type")
 		end
-		
+
 		if not self.Mod2_Handler  then
 			self:SetDamageFunction()
 		end
-		
+
 	end
 
 	-- Apply buffers (Mod3)
 	if self.Mod3_Buffers then
-		local SetOtherModifiers = function()
-			local ThrowDistanceModifier = self.Mod3_Buffers.ThrowDistanceModifier
-			local DamageMultiplier = self.Mod3_Buffers.DamageMultiplier
+		local function SetOtherModifiers()
+			local ThrowDistanceModifier = self.Mod3_Buffers.ThrowDistanceModifier or 0
+			local DamageMultiplier = self.Mod3_Buffers.DamageMultiplier or 0
 
-			if ThrowDistanceModifier ~= 0 then
+			if ThrowDistanceModifier ~= 0 and self.ThrowDistance then
 				self.ThrowDistance *= (1 + ThrowDistanceModifier)
 			end
-			if DamageMultiplier ~= 0 then
+
+			if DamageMultiplier ~= 0 and self.BaseDamage then
 				self.BaseDamage *= (1 + DamageMultiplier)
 			end
 		end
@@ -558,7 +599,7 @@ function StatsRockClass:SetModifierData()
 		Destination:SetAttribute("Description", self.Mod1_Shape_and_Damage.Description)
 		Destination:SetAttribute("Rarity", self.Mod1_Shape_and_Damage.Rarity)
 		Destination:SetAttribute("ItemType", self.Mod1_Shape_and_Damage.ItemType or "")
-		
+
 	else
 		-- Clear all attributes if no modifier is equipped
 		local Destination = ActiveRockModifiers:WaitForChild("Model")

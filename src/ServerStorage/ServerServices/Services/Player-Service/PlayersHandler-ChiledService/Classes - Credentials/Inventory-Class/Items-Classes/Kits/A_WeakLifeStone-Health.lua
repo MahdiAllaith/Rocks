@@ -27,7 +27,7 @@ function A_WeakLifeStoneClass.Init()
 	self.ItemType = "Kit"
 	
 	self.Rarity = "Uncommon"
-	self.Description = ""
+	self.Description = "Increases health by 100 points"
 
 	return self
 end

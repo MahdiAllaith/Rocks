@@ -17,14 +17,14 @@ function A_NormalAgilityStoneClass.Init()
 	local self = setmetatable({}, A_NormalAgilityStoneClass)
 
 	self.TypeKit = "Abilities"
-	self.WalkIncrease = 10 -- % increase
+	self.WalkIncrease = 15 -- % increase
 	self.RunIncrease = 15 -- % increase
 	self.JumpIncrease = 10 -- % increase
 	
 	self.ItemType = "Kit"
 	
 	self.Rarity = "Common"
-	self.Description = ""
+	self.Description = "Increases walk speed by 15%  and jump power by 10%"
 
 	return self
 end

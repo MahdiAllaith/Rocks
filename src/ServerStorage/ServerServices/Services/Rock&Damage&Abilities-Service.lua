@@ -17,6 +17,9 @@ local EnableMovment = ReplicatedStorage.Events.Motion.EnableMovment
 
 local handler = require(game.ServerStorage.ServerServices.Services["Player-Service"]).getPlayerHandler()
 
+local DeductStaminaEvent = ReplicatedStorage.Events.Motion.DeductStamina
+local EndSprintEvent = ReplicatedStorage.Events.Motion.EndSprint
+local StartSprintEvent = ReplicatedStorage.Events.Motion.StartSprint
 
 local PlayersCoolDownCounter = {}
 
@@ -25,6 +28,21 @@ function DamageService.Init()
 	local pendingHits = {}
 	
 	local movementDebounce = {}
+	
+	StartSprintEvent.OnServerEvent:Connect(function(player:Player)
+		local PlayerClasses = PlayerService.getPlayerHandler().getCredentails(player)
+		PlayerClasses.StaminaClass:StartBleed(5, 1)
+	end)
+	
+	EndSprintEvent.OnServerEvent:Connect(function(player:Player)
+		local PlayerClasses = PlayerService.getPlayerHandler().getCredentails(player)
+		PlayerClasses.StaminaClass:StopBleed()
+	end)
+	
+	DeductStaminaEvent.OnServerEvent:Connect(function(player:Player)
+		local PlayerClasses = PlayerService.getPlayerHandler().getCredentails(player)
+		PlayerClasses.StaminaClass:Deduct(20)
+	end)
 	
 	DisableMovment.OnServerEvent:Connect(function(player: Player)
 		-- Prevent multiple triggers within a short window

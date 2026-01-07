@@ -12,6 +12,10 @@ local Humanoid
 local RootPart
 local RunningSound
 
+local DeductStaminaEvent = ReplicatedStorage.Events.Motion.DeductStamina
+local EndSprintEvent = ReplicatedStorage.Events.Motion.EndSprint
+local StartSprintEvent = ReplicatedStorage.Events.Motion.StartSprint
+
 -- Modules for camera effects
 --require(script.CameraBob)
 --require(script.CameraShack)
@@ -256,13 +260,19 @@ end
 -- Sprint Functions
 function StartSprint()
 	if state.IsRunning or state.IsSliding or state.IsSpearJumping then return end
-
+	
+	if RootPart.Velocity.Magnitude < 0.1 then
+		return
+	end
+	
 	state.RunHeld = true
 	Humanoid.WalkSpeed = state.RunSpeed
 	state.IsRunning = true
 	if RunningSound then
 		RunningSound.PlaybackSpeed = 2.4
 	end
+	
+	StartSprintEvent:FireServer()
 end
 
 function StopSprint()
@@ -272,6 +282,8 @@ function StopSprint()
 	if RunningSound then
 		RunningSound.PlaybackSpeed = 1.85
 	end
+	
+	EndSprintEvent:FireServer()
 end
 
 -- Slide Hold Control Function
@@ -496,6 +508,8 @@ function SpearJump()
 	-- Apply decay
 	local startTime = tick()
 	local startVelocity = runtime.SpearForce.Velocity
+	
+	DeductStaminaEvent:FireServer()
 
 	runtime.SpearDecayConn = RunService.Heartbeat:Connect(function()
 		local elapsed = tick() - startTime

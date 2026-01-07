@@ -2,7 +2,9 @@ local LevelClass = {}
 LevelClass.__index = LevelClass
 
 export type LevelClassType = typeof(setmetatable({} :: {
-	LevelNumber:number
+	LevelNumber:number,
+	currentXpAmount:number,
+	DoubleXp:boolean,
 }, LevelClass))
 
 
@@ -14,12 +16,12 @@ local DOUBLE_XP_DURATION = 1800 -- 30 minutes in seconds
 
 function LevelClass.Init(player: Player, DATA)
 	local self = setmetatable({}, LevelClass)
-	
+
 	self.Player = player
-	
-	self.LevelNumber = 0
-	self.currentXpAmount = 0
-	
+
+	self.LevelNumber = DATA.Level.LevelNumber or 0
+	self.currentXpAmount = DATA.Level.CurrentXpAmount or 0
+
 	-- Checker if level not last level, and get next level xp required
 	local nextLevelRequiredId
 	if self.LevelNumber < MAX_LEVEL then
@@ -27,18 +29,18 @@ function LevelClass.Init(player: Player, DATA)
 	else
 		nextLevelRequiredId = 0
 	end
-	
+
 	self.NextLevelXpRequired = Levels[nextLevelRequiredId]
-	
-	self.DoubleXp = false
-	
+
+	self.DoubleXp = DATA.Level.DoubleXp or false
+
 	self.DoubleXpApplyedAmount = 0
 	self.DoubleXpTimeLeft = 0
-	
+
 	self.Player:SetAttribute("Level", self.LevelNumber)
 	self.Player:SetAttribute("CurentXP", self.currentXpAmount)
 	self.Player:SetAttribute("NextLevelRequiredXP", self.NextLevelXpRequired)
-	
+
 	if self.DoubleXp then
 		local TroveCleaner = MUtilies.Trove.new()
 		self._DoubleXpCleaner = TroveCleaner -- store for later cleanup if needed
@@ -80,35 +82,45 @@ end
 function LevelClass:AddXp(XpAmount: number)
 	if self.NextLevelXpRequired == nil then return end -- already max level
 
-	-- Add XP (apply double XP if enabled)
-	self.currentXpAmount += self.DoubleXp and (XpAmount * 2) or XpAmount
+	-- Apply double XP if active
+	local totalXpToAdd = self.DoubleXp and (XpAmount * 2) or XpAmount
 
-	-- Check if level-up is possible
-	if self.LevelNumber < MAX_LEVEL and self.currentXpAmount >= self.NextLevelXpRequired then
-		self.LevelNumber += 1
+	self.currentXpAmount += totalXpToAdd
+
+	-- Loop to handle multiple level-ups in one call
+	while self.LevelNumber < MAX_LEVEL and self.currentXpAmount >= self.NextLevelXpRequired do
+		-- Subtract XP needed for this level
 		self.currentXpAmount -= self.NextLevelXpRequired
 
+		-- Level up
+		self.LevelNumber += 1
+
+		-- Update next level XP requirement
 		if self.LevelNumber < MAX_LEVEL then
 			self.NextLevelXpRequired = Levels[self.LevelNumber + 1]
 		else
+			-- Reached max level
 			self.NextLevelXpRequired = nil
 			self.currentXpAmount = 0
+			break
 		end
 	end
 
+	-- Update player attributes
 	self.Player:SetAttribute("Level", self.LevelNumber)
 	self.Player:SetAttribute("CurentXP", self.currentXpAmount)
 	self.Player:SetAttribute("NextLevelRequiredXP", self.NextLevelXpRequired)
 end
 
+
 function LevelClass:AddDoubleXp()
 	self.DoubleXpApplyedAmount += 1
 	self.DoubleXpTimeLeft += DOUBLE_XP_DURATION
-	
+
 	if not self.DoubleXp then
 		self.DoubleXp = true
 	end
-	
+
 	self.Player:SetAttribute("DoubleXp", self.DoubleXp)
 	self.Player:SetAttribute("DoubleXpHave", self.DoubleXpApplyedAmount)
 	self.Player:SetAttribute("DoubleXpTimeLeft", self.DoubleXpTimeLeft)

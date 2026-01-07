@@ -288,12 +288,18 @@ return function(tool: Tool?, RockModel: Part, Type: string)
 				if humanoid then				
 					local track = humanoid:LoadAnimation(animation)
 					track:Play()
+					
+					local startCFrame = character:FindFirstChild("RightHand") and character.RightHand.CFrame
+					local targetPos = startCFrame.Position + cameraFacing * throwDistance + Vector3.new(0, -throwDistance * 0.2, 0)
+					local endCFrame = CFrame.new(targetPos)
+					INITIATE:FireServer(startCFrame, endCFrame)
+					
 					track:GetMarkerReachedSignal("Throwable"):Connect(function()
-						local startCFrame = character:FindFirstChild("RightHand") and character.RightHand.CFrame
-						local targetPos = startCFrame.Position + cameraFacing * throwDistance + Vector3.new(0, -throwDistance * 0.2, 0)
-						local endCFrame = CFrame.new(targetPos)
+						--local startCFrame = character:FindFirstChild("RightHand") and character.RightHand.CFrame
+						--local targetPos = startCFrame.Position + cameraFacing * throwDistance + Vector3.new(0, -throwDistance * 0.2, 0)
+						--local endCFrame = CFrame.new(targetPos)
 						simulateThrow(player, startCFrame, endCFrame, RockModel)  -- Use consistent player reference
-						INITIATE:FireServer(startCFrame, endCFrame)
+						--INITIATE:FireServer(startCFrame, endCFrame)
 					end)
 				end
 			else

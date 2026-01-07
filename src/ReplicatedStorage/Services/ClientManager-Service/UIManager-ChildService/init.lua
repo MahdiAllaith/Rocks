@@ -62,6 +62,9 @@ local Inventory = GUI.Menu.Lower_Menu_Canvas.All_Inventory
 local CenterRockModifiers = Menu.CenterCanves.RocksModifiers
 local CenterCharacterKits = Menu.CenterCanves.CharacterKits
 
+local RockInfoFrame = Menu.Stats_Info.Rock_Info
+local CharacterInfoFrame = Menu.Stats_Info.Player_Info
+
 local InventoryListCanves = Menu.Inventory_Quick_Accesses.InventoryList.CanvasGroup
 local RockModifierScrollFrame = InventoryListCanves.RockModifiersSF
 local CharacterKitsScrollFrame = InventoryListCanves.CharacterKitsSF
@@ -421,6 +424,10 @@ function Module:Init(Type :string) : GUISignales
 			FunctionUtils.Game.spawn(function()
 				UIFunctions.SwitchFramesWithTextTransparency(RockModifierScrollFrame, CharacterKitsScrollFrame, 0.2)
 			end)
+			
+			FunctionUtils.Game.spawn(function()
+				UIFunctions.SwitchFramesWithTextTransparency(RockInfoFrame, CharacterInfoFrame, 0.2)
+			end)
 		end
 	end)
 
@@ -438,6 +445,10 @@ function Module:Init(Type :string) : GUISignales
 			end)
 			FunctionUtils.Game.spawn(function()
 				UIFunctions.SwitchFramesWithTextTransparency(CharacterKitsScrollFrame, RockModifierScrollFrame, 0.2)
+			end)
+			
+			FunctionUtils.Game.spawn(function()
+				UIFunctions.SwitchFramesWithTextTransparency(CharacterInfoFrame, RockInfoFrame, 0.2)
 			end)
 		end
 	end)

@@ -18,9 +18,9 @@ function ServiceHandler:newPlayer(player: Player, playerData)
 				PlayerData = playerData
 			}
 			
+			-- must be done and not in class becasue set function requier other classes and can not requier them as it will be reqursive reqier error.
 			local playerClasses : ClassesTypes.ClassMap = self.getCredentails(player)
 			playerClasses.CharacterKitsClass:SetKits(playerClasses.HealthClass, playerClasses.StaminaClass, playerClasses.AbilitiesClass)
-			print(ServerCurrentplayer[player])
 			
 		else
 			warn("Player Data is nil")

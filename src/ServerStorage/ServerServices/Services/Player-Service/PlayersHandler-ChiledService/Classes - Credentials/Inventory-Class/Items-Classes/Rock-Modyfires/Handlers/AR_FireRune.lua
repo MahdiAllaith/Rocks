@@ -28,10 +28,12 @@ function FireRuneClass.Init()
 	self.DamageTakenBySecounds = 1 -- player Get damaged per one second
 	self.NewThrowDestince = 50
 	
+	self.IamgeID = "124692060751675"
+	
 	self.ItemType = "RockModifire"
 	
 	self.Rarity = "Uncommon"
-	self.Description = ""
+	self.Description = "Fire Ball, dealing 5 fire damage per second for 5 seconds."
 	return self
 end
 
